@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eya Michael Okechukwu - Cybersecurity Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Sky -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar for easy access to different sections. The structure is designed for a recruiter's workflow: starting with a high-level summary, moving to a visual and interactive skills assessment, then a chronological experience timeline, and finally supplementary details like education and projects. This non-linear access is more efficient than a traditional document, allowing users to jump directly to the information they find most relevant. Interactions like tabbed skill filters and expandable timeline entries prevent information overload and encourage exploration. -->
+    <!-- Visualization & Content Choices: 
+        - Summary -> Inform -> Text Block -> Static -> Clear introduction.
+        - Skills -> Compare/Organize -> Radar Chart (Chart.js) & Filterable Lists -> Click/Hover -> Provides a quick visual summary of core competencies and allows for detailed exploration of specific tools without clutter.
+        - Experience -> Show Change -> Vertical Timeline (HTML/CSS) -> Click-to-expand -> Intuitively shows career progression; progressive disclosure keeps the UI clean.
+        - Projects -> Organize/Inform -> Cards with Modals (HTML/CSS/JS) -> Click-to-open -> Presents projects as distinct items and uses modals to provide details without leaving the page.
+        - Certifications/Education -> Inform -> Grouped Lists -> Static -> Simple, clear presentation for credential verification. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid #0284c7;
+            left: -0.625rem;
+            top: 0;
+            z-index: 10;
+        }
+        .nav-link.active {
+            color: #0284c7;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <nav class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-xl font-bold text-slate-800">Eya Michael Okechukwu</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#summary" class="nav-link text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#experience" class="nav-link text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#education" class="nav-link text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">Education & Certs</a>
+                        <a href="#projects" class="nav-link text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                    </div>
+                </div>
+                 <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-sky-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#summary" class="nav-link text-slate-600 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills" class="nav-link text-slate-600 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#experience" class="nav-link text-slate-600 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#education" class="nav-link text-slate-600 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium">Education & Certs</a>
+                <a href="#projects" class="nav-link text-slate-600 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <section id="summary" class="mb-16 scroll-mt-16">
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <h1 class="text-4xl font-bold text-slate-900 tracking-tight">Eya Michael Okechukwu</h1>
+                <p class="text-xl text-sky-600 font-medium mt-2">Cybersecurity Analyst</p>
+                <div class="mt-4 text-sm text-slate-500 flex flex-wrap justify-center gap-x-4 gap-y-2">
+                    <span>+2347066069899</span>
+                    <span>|</span>
+                    <span>Princeeya79@gmail.com</span>
+                    <span>|</span>
+                    <a href="https://www.linkedin.com/in/princeeya/" class="text-sky-600 hover:underline" target="_blank">LinkedIn</a>
+                     <span>|</span>
+                    <a href="https://github.com/Princeeya" class="text-sky-600 hover:underline" target="_blank">GitHub</a>
+                </div>
+                <p class="mt-6 max-w-3xl mx-auto text-lg leading-relaxed">
+                    Highly motivated and aspiring Cybersecurity Analyst with a solid foundation in network security, threat analysis, and incident response principles. Eager to apply theoretical knowledge and hands-on experience gained through academic projects, labs, and certifications to real-world security challenges. Possesses a strong analytical mindset, a passion for continuous learning, and excellent problem-solving skills, ready to contribute to a dynamic cybersecurity team and protect organizational assets.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-16 scroll-mt-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Skills Showcase</h2>
+            <p class="text-center text-lg text-slate-600 mb-8 max-w-2xl mx-auto">This section provides a visual overview of my core competencies and a detailed breakdown of the technologies I work with. Use the filters to explore specific skill areas.</p>
+            
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg mb-8">
+                <h3 class="text-xl font-bold text-slate-800 text-center mb-4">Core Competency Areas</h3>
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-slate-800 text-center mb-6">Technical Toolkit</h3>
+                <div class="flex justify-center flex-wrap gap-2 mb-6" id="skill-filters">
+                    <button data-filter="all" class="skill-filter-btn bg-sky-600 text-white px-4 py-2 rounded-full text-sm font-medium">All</button>
+                    <button data-filter="fundamentals" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Fundamentals</button>
+                    <button data-filter="analysis" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Threat Detection</button>
+                    <button data-filter="net" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Networking</button>
+                    <button data-filter="os" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Operating Systems</button>
+                    <button data-filter="tools" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Tools</button>
+                    <button data-filter="cloud" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Cloud</button>
+                    <button data-filter="script" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Scripting</button>
+                    <button data-filter="comp" class="skill-filter-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">Compliance</button>
+                </div>
+                <div id="skill-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="fundamentals">OSI Model & TCP/IP</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="fundamentals">Cryptography</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="analysis">SIEM Concepts</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="analysis">Log Analysis</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="analysis">Vulnerability Scanning</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="os">Linux (Ubuntu, Kali)</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="os">Windows Server & Client</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="net">Router/Switch Config</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="net">Firewalls & VPN</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="cloud">AWS & Azure Concepts</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="script">Python</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="script">PowerShell</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="tools">Wireshark</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="tools">Nmap</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="tools">Metasploit</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="tools">Virtualization</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="comp">NIST Framework</div>
+                    <div class="skill-item p-3 bg-slate-50 rounded-lg" data-category="comp">GDPR/HIPAA Concepts</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-16 scroll-mt-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Professional Experience</h2>
+            <p class="text-center text-lg text-slate-600 mb-8 max-w-2xl mx-auto">A timeline of my career progression. Click on each role to see a detailed list of my responsibilities and accomplishments.</p>
+            <div class="relative pl-8 border-l-2 border-slate-200">
+                
+                <div class="timeline-item mb-12">
+                    <div class="cursor-pointer experience-toggle">
+                        <h3 class="text-xl font-bold text-slate-800">IT Support Technician / Help Desk Intern</h3>
+                        <p class="font-medium text-sky-600">5D Digital Tech Solutions, Utako, Abuja</p>
+                        <p class="text-sm text-slate-500">April 2024 – Present</p>
+                    </div>
+                    <div class="experience-details hidden mt-4 pl-4 border-l-2 border-sky-200">
+                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                            <li>Provided first-level technical support for hardware, software, and network issues, gaining exposure to common system vulnerabilities.</li>
+                            <li>Assisted with user account management, including password resets and access provisioning, adhering to security best practices.</li>
+                            <li>Participated in system patching and software update deployments, contributing to endpoint security.</li>
+                            <li>Troubleshoot network connectivity problems, learning about network protocols and potential points of exploitation.</li>
+                            <li>Documented technical procedures and resolutions, enhancing knowledge sharing within the team.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="mb-16 scroll-mt-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Education & Certifications</h2>
+             <p class="text-center text-lg text-slate-600 mb-8 max-w-2xl mx-auto">My academic background and the professional certifications that validate my skills and knowledge in the cybersecurity domain.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Education</h3>
+                    <p class="text-lg font-semibold text-slate-700">Bachelor of Science in Computer Science</p>
+                    <p class="font-medium text-sky-600">National Open University of Nigeria, Wuse II Study center Abuja</p>
+                    <p class="text-sm text-slate-500">2020 – 2025</p>
+                    <p class="mt-4 font-semibold">Relevant Coursework:</p>
+                    <p class="text-slate-600">Introduction to Cybersecurity, Network Security, Ethical Hacking & Penetration Testing, Digital Forensics, Cryptography, Information Security Management, Data Structures & Algorithms.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Certifications</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                             <span class="inline-block h-5 w-5 rounded-full bg-sky-500 text-white text-xs flex items-center justify-center mr-3 font-bold">&#10003;</span>
+                            <span>Google Professional Cybersecurity Certificate</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="scroll-mt-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Projects & Labs</h2>
+            <p class="text-center text-lg text-slate-600 mb-8 max-w-2xl mx-auto">A selection of personal projects where I've applied and expanded my cybersecurity skills. Click to learn more about each one.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold text-slate-800">Home Lab Security Hardening</h3>
+                        <p class="mt-2 text-slate-600">A virtualized lab environment built to practice defensive security techniques and tool configurations.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                        <button class="project-modal-trigger w-full bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition" data-project="homelab">View Details</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold text-slate-800">Vulnerability Assessment Practice</h3>
+                        <p class="mt-2 text-slate-600">Simulated vulnerability assessments on vulnerable machines in a controlled lab environment.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                         <button class="project-modal-trigger w-full bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition" data-project="vuln">View Details</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold text-slate-800">Python for Cybersecurity</h3>
+                        <p class="mt-2 text-slate-600">Custom Python scripts designed to automate common security tasks and assist in data analysis.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                         <button class="project-modal-trigger w-full bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition" data-project="python">View Details</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold text-slate-800">Digital Forensics Challenge</h3>
+                        <p class="mt-2 text-slate-600">Participation in online Capture The Flag (CTF) challenges focusing on digital forensics.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                         <button class="project-modal-trigger w-full bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition" data-project="ctf">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Project Modals -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden"></div>
+    
+    <div id="homelab-modal" class="project-modal fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-8 relative animate-fade-in-up">
+            <button class="modal-close-btn absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">Home Lab Security Hardening & Monitoring</h3>
+            <p class="text-slate-600 mb-4">Designed and implemented a virtualized home lab environment using VMware Workstation/VirtualBox to simulate an enterprise network.</p>
+            <h4 class="font-bold mt-4 mb-2">Key Activities:</h4>
+            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                <li>Configured various operating systems (Windows Server, Ubuntu, Kali Linux).</li>
+                <li>Deployed firewall rules (pfSense/iptables) and set up an Intrusion Detection System (Snort).</li>
+                <li>Implemented a basic SIEM (ELK Stack) for log collection and analysis.</li>
+            </ul>
+            <h4 class="font-bold mt-4 mb-2">Skills Demonstrated:</h4>
+            <p class="text-slate-600">Network segmentation, log management, threat detection, virtualization, and operating system hardening.</p>
+        </div>
+    </div>
+    
+    <div id="vuln-modal" class="project-modal fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-8 relative animate-fade-in-up">
+            <button class="modal-close-btn absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">Basic Vulnerability Assessment & Penetration Testing Practice</h3>
+             <p class="text-slate-600 mb-4">Conducted simulated vulnerability assessments and basic penetration tests on intentionally vulnerable machines within a controlled lab environment.</p>
+            <h4 class="font-bold mt-4 mb-2">Key Activities:</h4>
+            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                <li>Utilized tools like Nmap for reconnaissance and Nessus (or OpenVAS) for vulnerability scanning.</li>
+                <li>Used Metasploit for controlled exploitation to understand attack vectors.</li>
+            </ul>
+             <h4 class="font-bold mt-4 mb-2">Skills Demonstrated:</h4>
+            <p class="text-slate-600">Vulnerability identification, ethical hacking methodologies, and understanding of common exploits.</p>
+        </div>
+    </div>
+
+    <div id="python-modal" class="project-modal fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-8 relative animate-fade-in-up">
+            <button class="modal-close-btn absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">Python Scripting for Cybersecurity Tasks</h3>
+             <p class="text-slate-600 mb-4">Developed several Python scripts to automate common cybersecurity tasks and assist in data analysis.</p>
+            <h4 class="font-bold mt-4 mb-2">Key Activities:</h4>
+            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                <li>Created a script to parse firewall logs and identify suspicious IP addresses.</li>
+                <li>Wrote a basic password strength checker using regex.</li>
+                <li>Developed a tool to automate file hashing for integrity checks.</li>
+            </ul>
+             <h4 class="font-bold mt-4 mb-2">Skills Demonstrated:</h4>
+            <p class="text-slate-600">Scripting, automation, data parsing, and understanding of security concepts through code.</p>
+        </div>
+    </div>
+
+    <div id="ctf-modal" class="project-modal fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-8 relative animate-fade-in-up">
+            <button class="modal-close-btn absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">Digital Forensics Challenge (CTF Participation)</h3>
+             <p class="text-slate-600 mb-4">Actively participated in online Capture The Flag (CTF) challenges focusing on digital forensics.</p>
+            <h4 class="font-bold mt-4 mb-2">Key Activities:</h4>
+            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                <li>Used forensic tools like Wireshark and Wazuh for network packet analysis.</li>
+                <li>Utilized Autopsy (or Volatility) for memory analysis to extract hidden information and solve challenges.</li>
+            </ul>
+             <h4 class="font-bold mt-4 mb-2">Skills Demonstrated:</h4>
+            <p class="text-slate-600">Digital forensics principles, investigative techniques, and use of specialized forensic tools.</p>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Chart.js Radar Chart
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        const skillsChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Network Security', 'Threat Analysis', 'OS Security', 'Incident Response', 'Cloud Concepts', 'Compliance', 'Scripting'],
+                datasets: [{
+                    label: 'Competency Level',
+                    data: [8, 9, 8, 7, 7, 7, 8],
+                    backgroundColor: 'rgba(2, 132, 199, 0.2)',
+                    borderColor: 'rgb(2, 132, 199)',
+                    pointBackgroundColor: 'rgb(2, 132, 199)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(2, 132, 199)'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: { font: { size: 14 } },
+                        ticks: {
+                            backdropColor: 'transparent',
+                            stepSize: 2,
+                            max: 10,
+                            min: 0,
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.r !== null) {
+                                    label += context.parsed.r;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Skill Filters
+        const skillFilters = document.getElementById('skill-filters');
+        const skillItems = document.querySelectorAll('.skill-item');
+
+        skillFilters.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON') return;
+            
+            const filter = e.target.dataset.filter;
+
+            // Update button styles
+            skillFilters.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('bg-sky-600', 'text-white');
+                btn.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            e.target.classList.add('bg-sky-600', 'text-white');
+            e.target.classList.remove('bg-slate-200', 'text-slate-700');
+
+            // Filter items
+            skillItems.forEach(item => {
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Experience Timeline Toggle
+        const experienceToggles = document.querySelectorAll('.experience-toggle');
+        experienceToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const details = toggle.nextElementSibling;
+                details.classList.toggle('hidden');
+            });
+        });
+        
+        // Project Modals
+        const modalTriggers = document.querySelectorAll('.project-modal-trigger');
+        const backdrop = document.getElementById('modal-backdrop');
+        const closeBtns = document.querySelectorAll('.modal-close-btn');
+
+        const closeModal = () => {
+            document.querySelectorAll('.project-modal').forEach(modal => modal.classList.add('hidden'));
+            backdrop.classList.add('hidden');
+        };
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const modalId = trigger.dataset.project + '-modal';
+                const modal = document.getElementById(modalId);
+                backdrop.classList.remove('hidden');
+                modal.classList.remove('hidden');
+            });
+        });
+        
+        closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+        backdrop.addEventListener('click', closeModal);
+
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.querySelector('svg .inline-flex').classList.toggle('hidden', !isHidden);
+            mobileMenuButton.querySelector('svg .hidden').classList.toggle('hidden', isHidden);
+        });
+        
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                 mobileMenu.classList.add('hidden');
+                 mobileMenuButton.querySelector('svg .inline-flex').classList.remove('hidden');
+                 mobileMenuButton.querySelector('svg .hidden').classList.add('hidden');
+            });
+        });
+
+        // Nav Link Active State on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+
+</body>
+</html>
